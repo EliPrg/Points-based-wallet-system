@@ -3,7 +3,7 @@ from dataclasses import dataclass
 import datetime
 
 
-# Clase cliente 
+# Clase cliente
 @dataclass()
 class cliente:
     idCliente: str
