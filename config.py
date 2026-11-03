@@ -1,7 +1,7 @@
 #Definición de costantes para el sistema
-
+import dataclass
 #Niveles de lealtad
-Niveles = {"Bronce":(0,1), "Plata":(1000,1.25), "Oro":(5000,1.5)}
+Niveles = {"Bronce": (0, 1), "Plata": (1000, 1.25), "Oro": (5000, 1.5)}
 # Puntos por u.m.
 UM_puntos = 10
 
@@ -12,7 +12,10 @@ class configPremios:
     nombre: str
     costo: int
 
+
 # Catalogo de premios
-Catalogo=[configPremios("P01","Café de cortesía",100),configPremios("P02","Cupón de descuento 10%",250),
-          configPremios("P03","Gift card de 50 u.m.",800),configPremios("P04","Audífonos inalámbricos",1200),
-          configPremios("P05","Fin de semana en hotel",4000)]
+Catalogo = [configPremios("P01","Café de cortesía", 100),
+            configPremios("P02","Cupón de descuento 10%", 250),
+            configPremios("P03","Gift card de 50 u.m.", 800),
+            configPremios("P04","Audífonos inalámbricos", 1200),
+            configPremios("P05","Fin de semana en hotel", 4000)]
