@@ -1,13 +1,7 @@
 # Archivo de servicios para el sistema de lealtad
-from config import Niveles, UM_puntos, Catalogo
+from config import UM_puntos, Catalogo
 from models import cliente, compras
 import datetime
-
-# Arreglo de clientes
-cliente = {}
-
-# Arreglo de compras
-compras = {}
 
 
 def calcularPuntosAcum(monto: float):
@@ -29,7 +23,7 @@ def consultarSaldo(idCliente: str):
 def consultarCatalogo():
     for i in len(Catalogo):
         for l in len(Catalogo[i]):
-            print(f"id: {Catalogo[i,l].id_premio}, Nombre: {Catalogo[i,l].nombre}, Costo: {Catalogo[i,l].costo} ")
+            print(f"id: {Catalogo[i,l].id_premio},Nombre: {Catalogo[i,l].nombre}, Costo: {Catalogo[i,l].costo}")
 
 
 def canjePremio(idCanje: str, idCliente: str, idPremio: str, fecha: datetime):
