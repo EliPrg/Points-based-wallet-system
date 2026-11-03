@@ -16,4 +16,3 @@ class configPremios:
 Catalogo=[configPremios("P01","Café de cortesía",100),configPremios("P02","Cupón de descuento 10%",250),
           configPremios("P03","Gift card de 50 u.m.",800),configPremios("P04","Audífonos inalámbricos",1200),
           configPremios("P05","Fin de semana en hotel",4000)]
-
