@@ -13,7 +13,7 @@ class cliente:
     puntosAcum: int
 
 
-#Clase para compras
+# Clase para compras
 @dataclass()
 class compras:
     idCompra: str
@@ -22,7 +22,7 @@ class compras:
     fecha: datetime
 
 
-#Canje premio
+# Canje premio
 @dataclass()
 class canjePremio:
     idCanje: str
