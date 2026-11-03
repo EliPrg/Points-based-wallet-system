@@ -5,7 +5,7 @@ import datetime
 
 
 def calcularPuntosAcum(monto: float):
-    return((monto/UM_puntos)*1)
+    return ((monto/UM_puntos)*1)
 
 
 def creaciónCliente(idCliente: str, nombre: str, correoElectronico: str):
@@ -17,7 +17,7 @@ def registroCompras(idCompra: str, idCliente: str, monto: float, fecha: datetime
 
 
 def consultarSaldo(idCliente: str):
-    return()
+    return ()
 
 
 def consultarCatalogo():
