@@ -48,3 +48,15 @@ class ErrorFechaInvalida(Exception):
     # Metodo para la impresión del mensaje de la excepción
     def __str__(self):
         return (f"La fecha: {self.fecha} es invalida debido a que {self.motivoDeInvalidez}")
+
+
+# Clase para las excepciones de premio no encontrados
+class ErrorPremioNoEncontrado(Exception):
+    # Constructor de la clase
+    def __init__(self, idPremio):
+        super().__init__(idPremio)
+        self.idPremio = idPremio
+
+    # Metodo para la impresión del mensaje de la excepción
+    def __str__(self):
+        return (f"El premio con la id: {self.idPremio} no fue encontrado")
