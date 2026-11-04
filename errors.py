@@ -72,3 +72,16 @@ class ErrorPremioSinStock(Exception):
     # Metodo para la impresión del mensaje de la excepción
     def __str__(self):
         return (f"El premio '{self.nombre}' no tiene stock disponible")
+
+
+# Clase para las excepciones de premio sin stock
+class ErrorSaldoInsuficiente(Exception):
+    # Constructor de la clase
+    def __init__(self, saldo, CostoCompra):
+        super().__init__(saldo, CostoCompra)
+        self.saldo = saldo
+        self.CostoCompra = CostoCompra
+
+    # Metodo para la impresión del mensaje de la excepción
+    def __str__(self):
+        return (f"Saldo insuficiente. Saldo disponible: {self.saldo}, Costo de compra: {self.CostoCompra}")
