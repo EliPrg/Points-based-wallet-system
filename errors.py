@@ -60,3 +60,15 @@ class ErrorPremioNoEncontrado(Exception):
     # Metodo para la impresión del mensaje de la excepción
     def __str__(self):
         return (f"El premio con la id: {self.idPremio} no fue encontrado")
+
+
+# Clase para las excepciones de premio sin stock
+class ErrorPremioSinStock(Exception):
+    # Constructor de la clase
+    def __init__(self, nombre):
+        super().__init__(nombre)
+        self.nombre = nombre
+
+    # Metodo para la impresión del mensaje de la excepción
+    def __str__(self):
+        return (f"El premio '{self.nombre}' no tiene stock disponible")
