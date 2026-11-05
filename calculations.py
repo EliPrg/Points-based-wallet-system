@@ -3,11 +3,6 @@
 from config import UM_puntos
 
 
-# Método para validar que la fecha ingresada no sea mayor a la ultima fecha ingresada
-def validarFecha(fecha, fechasAlmacenadas):
-    pass
-
-
 # Método para contar los decimales de un número
 def metodoConteoDecimal(numero):
     numeroCasteado = str(numero)
