@@ -1,5 +1,6 @@
 # Archivo que contiene las validaciones de los datos de entrada
 from errors import ErrorClienteDuplicado, ErrorDatosInvalidos, ErrorClienteNoEncontrado, ErrorFechaInvalida, ErrorMontoInvalido, ErrorSaldoInsuficiente, ErrorPremioSinStock, ErrorPremioNoEncontrado
+from calculations import metodoConteoDecimal, validarFecha
 import re
 import datetime
 
@@ -23,10 +24,6 @@ def validarDatosCliente(idCliente, nombre, correo, clientes):
     if idCliente in clientes:
         # raise una excepción si el cliente ya existe en la tabla de clientes
         raise ErrorClienteDuplicado(idCliente)
-
-
-def validarFecha(fecha, fechasAlmacenadas):
-    pass
 
 
 # Validación de fecha valida
@@ -83,9 +80,3 @@ def validarDatosCanjePremio(idCliente, clientes, idPremio, premios, fecha, fecha
         raise ErrorSaldoInsuficiente(clientes[idCliente]["saldo"], premios[idPremio]["costo"])
     if premios[idPremio]["stock"] <= 0:
         raise ErrorPremioSinStock(premios[idPremio]["nombre"])
-
-
-def metodoConteoDecimal(numero):
-    numeroCasteado = str(numero)
-    numeroCasteado = numeroCasteado.split(".")
-    return len(numeroCasteado[1])

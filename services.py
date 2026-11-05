@@ -4,10 +4,6 @@ from models import cliente, compras
 import datetime
 
 
-def calcularPuntosAcum(monto: float):
-    return ((monto/UM_puntos)*1)
-
-
 def creaciónCliente(idCliente: str, nombre: str, correoElectronico: str):
     cliente(idCliente, nombre, correoElectronico)
 
