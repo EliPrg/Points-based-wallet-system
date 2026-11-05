@@ -1,5 +1,5 @@
 # Archivo de servicios para el sistema de lealtad
-from config import UM_puntos, Catalogo
+from config import Catalogo
 from models import cliente, compras
 import datetime
 
