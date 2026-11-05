@@ -1,6 +1,6 @@
 # Archivo que contiene las validaciones de los datos de entrada
 from errors import ErrorClienteDuplicado, ErrorDatosInvalidos, ErrorClienteNoEncontrado, ErrorFechaInvalida, ErrorMontoInvalido, ErrorSaldoInsuficiente, ErrorPremioSinStock, ErrorPremioNoEncontrado
-from calculations import metodoConteoDecimal, validarFecha
+from calculations import metodoConteoDecimal
 import re
 from datetime import datetime
 
@@ -39,12 +39,11 @@ def validacionDeFechaValida(fecha, fechasAlmacenadas):
         fecha = datetime.strptime(fecha, "%d-%m-%Y").date()
     except ValueError:
         raise ErrorFechaInvalida(fecha, "la fecha no existe")
-    
+
     # Validación de si la fecha es menor a la ultima fecha almacenada
     if fechasAlmacenadas and fecha < fechasAlmacenadas[-1]:
         if fecha < fechasAlmacenadas[-1]:
             raise ErrorFechaInvalida(fecha, "Esa fecha ya paso")
-    
 
 
 # Método para validar los datos de entrada de la compra
