@@ -2,7 +2,7 @@
 from errors import ErrorClienteDuplicado, ErrorDatosInvalidos, ErrorClienteNoEncontrado, ErrorFechaInvalida, ErrorMontoInvalido, ErrorSaldoInsuficiente, ErrorPremioSinStock, ErrorPremioNoEncontrado
 from calculations import metodoConteoDecimal, validarFecha
 import re
-import datetime
+from datetime import datetime
 
 
 # Método para validar los datos de entrada del cliente
@@ -31,10 +31,6 @@ def validacionDeFechaValida(fecha, fechasAlmacenadas):
     # Formato para validar el formato de la fecha
     formatoFecha = r"[0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]"
 
-    # Validación de si la fecha ya se encuentra almacenada
-    if not validarFecha(fecha, fechasAlmacenadas):
-        raise ErrorFechaInvalida(fecha, "Esa fecha ya paso")
-
     if not isinstance(fecha, str) or not re.fullmatch(formatoFecha, fecha):
         raise ErrorFechaInvalida(fecha, "El formato es invalido para la fecha")
 
@@ -43,6 +39,12 @@ def validacionDeFechaValida(fecha, fechasAlmacenadas):
         fecha = datetime.strptime(fecha, "%d-%m-%Y").date()
     except ValueError:
         raise ErrorFechaInvalida(fecha, "la fecha no existe")
+    
+    # Validación de si la fecha es menor a la ultima fecha almacenada
+    if fechasAlmacenadas and fecha < fechasAlmacenadas[-1]:
+        if fecha < fechasAlmacenadas[-1]:
+            raise ErrorFechaInvalida(fecha, "Esa fecha ya paso")
+    
 
 
 # Método para validar los datos de entrada de la compra
