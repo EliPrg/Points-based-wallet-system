@@ -4,7 +4,7 @@ from models import cliente, compras
 from validations import validarDatosCliente
 from datetime import datetime
 clientes = {}
-fechas =  []
+fechas = []
 
 
 def creacionCliente(idCliente: str, nombre: str, correoElectronico: str, fecha: str):
