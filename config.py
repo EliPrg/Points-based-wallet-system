@@ -12,6 +12,7 @@ class configPremios:
     id_premio: str
     nombre: str
     costo: int
+    stockInicial: int = 10
 
 
 # Catalogo de premios
