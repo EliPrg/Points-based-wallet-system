@@ -3,6 +3,7 @@ from errors import ErrorClienteDuplicado, ErrorDatosInvalidos, ErrorClienteNoEnc
 import re
 import datetime
 
+
 # Método para validar los datos de entrada del cliente
 def validarDatosCliente(idCliente, nombre, correo, clientes):
     # Definición de expresiones regulares
@@ -23,6 +24,7 @@ def validarDatosCliente(idCliente, nombre, correo, clientes):
         # raise una excepción si el cliente ya existe en la tabla de clientes
         raise ErrorClienteDuplicado(idCliente)
 
+
 def validarFecha(fecha, fechasAlmacenadas):
     pass
 
@@ -30,12 +32,12 @@ def validarFecha(fecha, fechasAlmacenadas):
 # Validación de fecha valida
 def validacionDeFechaValida(fecha, fechasAlmacenadas):
     # Formato para validar el formato de la fecha
-    formatoFecha=r"[0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]"
+    formatoFecha = r"[0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]"
 
     # Validación de si la fecha ya se encuentra almacenada
-    if validarFecha(fecha,fechasAlmacenadas) == False:
-        raise ErrorFechaInvalida(fecha,"Esa fecha ya paso")
-    
+    if not validarFecha(fecha, fechasAlmacenadas):
+        raise ErrorFechaInvalida(fecha, "Esa fecha ya paso")
+
     if not isinstance(fecha, str) or not re.fullmatch(formatoFecha, fecha):
         raise ErrorFechaInvalida(fecha, "El formato es invalido para la fecha")
 
@@ -51,28 +53,29 @@ def validarDatosCompra(idCliente, clientes, fecha, fechasAlmacenadas, monto):
     # Validación de la existencia del cliente
     validarExistenciaCliente(idCliente, clientes)
     # Llamada del método para validar la fecha
-    validacionDeFechaValida(fecha,fechasAlmacenadas)
+    validacionDeFechaValida(fecha, fechasAlmacenadas)
     # Validar que el monto sea mayor a 0
-    if monto <=0:
+    if monto <= 0:
         # Mensaje de error si el monto es inferior o igual a 0
         raise ErrorMontoInvalido(monto, "el monto es menor o igual a 0")
     # Validar que los decimales del monto no sean más de dos
-    if metodoConteoDecimal(monto)>2:
+    if metodoConteoDecimal(monto) > 2:
         raise ErrorMontoInvalido(monto, "el monto contiene más de 2 decimales")
 
 
 # Método para validar que un cliente exista en la tabla de clientes
 def validarExistenciaCliente(idCliente, clientes):
-     if idCliente not in clientes:
-            # raise una excepción si el cliente no existe en la tabla de clientes
-            raise ErrorClienteNoEncontrado(idCliente)
+    if idCliente not in clientes:
+        # raise una excepción si el cliente no existe en la tabla de clientes
+        raise ErrorClienteNoEncontrado(idCliente)
+
 
 # Método para validar que los datos de entrada del canje de un premio
 def validarDatosCanjePremio(idCliente, clientes, idPremio, premios, fecha, fechasAlmacenadas):
     # Validación de la existencia del cliente
     validarExistenciaCliente(idCliente, clientes)
     # Llamada del método para validar la fecha
-    validacionDeFechaValida(fecha,fechasAlmacenadas)
+    validacionDeFechaValida(fecha, fechasAlmacenadas)
     # Validaciones del saldo
     if idPremio not in premios:
         raise ErrorPremioNoEncontrado(idPremio)
@@ -80,6 +83,7 @@ def validarDatosCanjePremio(idCliente, clientes, idPremio, premios, fecha, fecha
         raise ErrorSaldoInsuficiente(clientes[idCliente]["saldo"], premios[idPremio]["costo"])
     if premios[idPremio]["stock"] <= 0:
         raise ErrorPremioSinStock(premios[idPremio]["nombre"])
+
 
 def metodoConteoDecimal(numero):
     numeroCasteado = str(numero)
