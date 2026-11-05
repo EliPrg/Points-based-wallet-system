@@ -1,11 +1,19 @@
 # Archivo de servicios para el sistema de lealtad
 from config import Catalogo
 from models import cliente, compras
-import datetime
+from validations import validarDatosCliente
+from datetime import datetime
+clientes = {}
+fechas = []
 
 
-def creaciónCliente(idCliente: str, nombre: str, correoElectronico: str):
-    cliente(idCliente, nombre, correoElectronico)
+def creacionCliente(idCliente: str, nombre: str, correoElectronico: str, fecha: str):
+    validarDatosCliente(idCliente, nombre, correoElectronico, clientes, fecha, fechas)
+    fecha = datetime.strptime(fecha, "%d-%m-%Y").date()
+    nuevoCliente = cliente(idCliente, nombre, correoElectronico, fecha)
+    fechas.append(fecha)
+    clientes[nuevoCliente.idCliente] = nuevoCliente
+    return (nuevoCliente)
 
 
 def registroCompras(idCompra: str, idCliente: str, monto: float, fecha: datetime):

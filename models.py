@@ -11,6 +11,7 @@ class cliente:
     correo: str
     saldo: int
     puntosAcum: int
+    fechaIns: datetime
 
 
 # Clase para compras

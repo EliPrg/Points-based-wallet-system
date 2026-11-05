@@ -6,7 +6,7 @@ from datetime import datetime
 
 
 # Método para validar los datos de entrada del cliente
-def validarDatosCliente(idCliente, nombre, correo, clientes):
+def validarDatosCliente(idCliente, nombre, correo, clientes, fecha, fechasAlmacenadas):
     # Definición de expresiones regulares
     expresionId = r"[A-Za-z0-9]+"
     expresionNombre = r"[A-Za-zÁÉÍÓÚÜÑáéíóúüñ][A-Za-zÁÉÍÓÚÜÑáéíóúüñ ]*"
@@ -24,6 +24,7 @@ def validarDatosCliente(idCliente, nombre, correo, clientes):
     if idCliente in clientes:
         # raise una excepción si el cliente ya existe en la tabla de clientes
         raise ErrorClienteDuplicado(idCliente)
+    validacionDeFechaValida(fecha, fechasAlmacenadas)
 
 
 # Validación de fecha valida
