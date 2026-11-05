@@ -38,6 +38,19 @@ class ErrorDatosInvalidos(Exception):
 
 
 # Clase para las excepciones de fecha Invalida
+class ErrorMontoInvalido(Exception):
+    # Constructor de la clase
+    def __init__(self, monto, motivoDeInvalidez):
+        super().__init__(monto)
+        self.monto = monto
+        self.motivoDeInvalidez = motivoDeInvalidez
+
+    # Metodo para la impresión del mensaje de la excepción
+    def __str__(self):
+        return (f"El monto: {self.monto} es invalido debido a que {self.motivoDeInvalidez}")
+
+
+# Clase para las excepciones de fecha Invalida
 class ErrorFechaInvalida(Exception):
     # Constructor de la clase
     def __init__(self, fecha, motivoDeInvalidez):
