@@ -2,7 +2,7 @@
 from config import Catalogo
 from models import cliente, compras, canjePremio
 from validations import validarDatosCliente, validarDatosCompra, validarExistenciaCliente, validarDatosCanjePremio
-from calculations import calcularPuntosAcum
+from calculations import calcularPuntosAcum, calcularNivel, difProximoNivel
 from datetime import datetime
 from decimal import Decimal
 from calculations import buscarPremio
@@ -28,16 +28,18 @@ def registroCompras(idCliente: str, monto: str, fecha: str):
     # Validación los datos de entrada de la compra
     validarDatosCompra(idCliente, clientes, fecha, fechas, monto)
     fecha = datetime.strptime(fecha, "%d-%m-%Y").date()
-    puntosSum = calcularPuntosAcum(monto)
+    nivelUsado = clientes[idCliente].nivel
+    puntosSum = calcularPuntosAcum(monto, nivelUsado[1])
     idCompra = "C-" + str(len(listaCompras) + 1)
     # Creación de la nueva compra y almacenamiento en el diccionario de compras
     nuevaCompra = compras(idCompra, idCliente, Decimal(monto), fecha)
     clientes[idCliente].saldo += puntosSum
     clientes[idCliente].puntosAcum += puntosSum
+    clientes[idCliente].nivel = calcularNivel(clientes[idCliente].puntosAcum)
     listaCompras[nuevaCompra.idCompra] = nuevaCompra
     fechas.append(fecha)
     # Retorno de la nueva compra creada
-    return ({"id": idCompra, "puntos": puntosSum, "saldo": clientes[idCliente].saldo})
+    return ({"id": idCompra, "puntos": puntosSum, "saldo": clientes[idCliente].saldo, "nivel": nivelUsado[0], "mul": nivelUsado[1]})
 
 
 def consultarSaldo(idCliente: str):
@@ -61,3 +63,9 @@ def canjearUnPremio(idCliente: str, idPremio: str, fecha: str):
     listaCanjes[nuevoCanje.fecha] = nuevoCanje
     fechas.append(fecha)
     return {"costo": premio.costo, "saldo": clientes[idCliente].saldo}
+
+
+# Método para consultar el nivel de un cliente
+def consultarNivel(idCliente):
+    validarExistenciaCliente(idCliente, clientes)
+    return {"nivel": clientes[idCliente].nivel[0], "puntosAcum": clientes[idCliente].nivel[1], "difNivel": difProximoNivel(clientes[idCliente].puntosAcum)}

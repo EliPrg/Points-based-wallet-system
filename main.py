@@ -33,7 +33,8 @@ def main():
                     fecha = input("Ingrese la fecha de inscripción de la compra (dd-mm-aaaa): \n")
                     resultado = registroCompras(idCliente, monto, fecha)
                     print(f"Se registro la compra con el id: {resultado["id"]}, que genero la cantidad de: {resultado["puntos"]} " +
-                          f"puntos y que dejo al usuario la cantidad de: {resultado["saldo"]}\n")
+                          f"puntos y que dejo al usuario la cantidad de: {resultado["saldo"]}, el nivel utilizado fue: {resultado["nivel"]} " +
+                          f" y el multiplicador fue{resultado["mul"]}\n")
                 except LealtadError as e:
                     print(e.codigo)
                     print(e)
