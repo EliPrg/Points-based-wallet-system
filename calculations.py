@@ -13,6 +13,6 @@ def calcularPuntosAcum(monto):
 # Método para buscar un premio por id dentro del catálogo (lista)
 def buscarPremio(idPremio):
     for premio in Catalogo:
-        if premio.id_premio == idPremio:
+        if premio.idPremio == idPremio:
             return premio
     return None

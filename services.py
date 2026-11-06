@@ -11,7 +11,7 @@ fechas = []
 listaCompras = {}
 listaCanjes = {}
 stockPremios = {
-     p.id_premio: p.stockInicial for p in Catalogo
+     p.idPremio: p.stockInicial for p in Catalogo
 }
 
 

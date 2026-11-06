@@ -9,9 +9,9 @@ class cliente:
     idCliente: str
     nombre: str
     correo: str
+    fechaIns: datetime
     saldo: int = 0
     puntosAcum: int = 0
-    fechaIns: datetime
 
 
 # Clase para compras
