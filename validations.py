@@ -4,6 +4,7 @@ import re
 from datetime import datetime
 from decimal import Decimal, InvalidOperation
 from config import Catalogo
+from calculations import buscarPremio
 
 
 # Método para validar los datos de entrada del cliente
@@ -91,11 +92,3 @@ def validarDatosCanjePremio(idCliente, clientes, idPremio, fecha, fechasAlmacena
         raise ErrorPremioSinStock(premio.nombre)
     if clientes[idCliente].saldo < premio.costo:
         raise ErrorSaldoInsuficiente(clientes[idCliente].saldo, premio.costo)
-
-
-# Método para buscar un premio por id dentro del catálogo (lista)
-def buscarPremio(idPremio):
-    for premio in Catalogo:
-        if premio.id_premio == idPremio:
-            return premio
-    return None

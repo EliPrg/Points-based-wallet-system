@@ -1,10 +1,11 @@
 # Archivo de servicios para el sistema de lealtad
 from config import Catalogo
-from models import cliente, compras
-from validations import validarDatosCliente, validarDatosCompra, validarExistenciaCliente
+from models import cliente, compras, canjePremio
+from validations import validarDatosCliente, validarDatosCompra, validarExistenciaCliente, validarDatosCanjePremio
 from calculations import calcularPuntosAcum
 from datetime import datetime
 from decimal import Decimal
+from calculations import buscarPremio
 clientes = {}
 fechas = []
 listaCompras = {}
