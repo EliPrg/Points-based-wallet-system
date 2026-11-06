@@ -59,4 +59,4 @@ def canjearUnPremio(idCliente: str, idPremio: str, fecha: str):
     nuevoCanje = canjePremio(idCliente, idPremio, fecha)
     listaCanjes[nuevoCanje.fecha] = nuevoCanje
     fechas.append(fecha)
-    return (premio.costo, clientes[idCliente].saldo)
+    return {"costo": premio.costo, "saldo": clientes[idCliente].saldo}
