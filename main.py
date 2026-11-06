@@ -80,7 +80,7 @@ def main():
                 try:
                     idCliente = input("Ingrese el id del cliente: \n")
                     nivel = consultarNivel(idCliente)
-                    print(f"El nivel del cliente es: {nivel["nivel"]}, los puntos acumulados son: {nivel["puntosAcum"]} y faltan: {nivel["difNivel"]} "+
+                    print(f"El nivel del cliente es: {nivel["nivel"]}, los puntos acumulados son: {nivel["puntosAcum"]} y faltan: {nivel["difNivel"]} " +
                           "para el siguiente nivel\n")
                 except LealtadError as e:
                     print(e.codigo)
