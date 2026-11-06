@@ -26,4 +26,3 @@ def calcularNivel(puntosAcum):
         if puntosAcum >= umbral:
             nivelActual = (nombre, multiplicador)
     return nivelActual
-

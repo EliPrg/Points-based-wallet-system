@@ -5,7 +5,7 @@ from validations import validarDatosCliente, validarDatosCompra, validarExistenc
 from calculations import calcularPuntosAcum, calcularNivel
 from datetime import datetime
 from decimal import Decimal
-from calculations import buscarPremio, calcularMulti
+from calculations import buscarPremio
 clientes = {}
 fechas = []
 listaCompras = {}
