@@ -10,6 +10,7 @@ class cliente:
     nombre: str
     correo: str
     fechaIns: datetime
+    nivel: str = "Bronce"
     saldo: int = 0
     puntosAcum: int = 0
 

@@ -2,10 +2,10 @@
 from config import Catalogo
 from models import cliente, compras, canjePremio
 from validations import validarDatosCliente, validarDatosCompra, validarExistenciaCliente, validarDatosCanjePremio
-from calculations import calcularPuntosAcum
+from calculations import calcularPuntosAcum, calcularNivel
 from datetime import datetime
 from decimal import Decimal
-from calculations import buscarPremio
+from calculations import buscarPremio, calcularMulti
 clientes = {}
 fechas = []
 listaCompras = {}
@@ -28,12 +28,13 @@ def registroCompras(idCliente: str, monto: str, fecha: str):
     # Validación los datos de entrada de la compra
     validarDatosCompra(idCliente, clientes, fecha, fechas, monto)
     fecha = datetime.strptime(fecha, "%d-%m-%Y").date()
-    puntosSum = calcularPuntosAcum(monto)
+    puntosSum = calcularPuntosAcum(monto, calcularMulti(clientes[idCliente].nivel))
     idCompra = "C-" + str(len(listaCompras) + 1)
     # Creación de la nueva compra y almacenamiento en el diccionario de compras
     nuevaCompra = compras(idCompra, idCliente, Decimal(monto), fecha)
     clientes[idCliente].saldo += puntosSum
     clientes[idCliente].puntosAcum += puntosSum
+    clientes[idCliente].nivel = calcularNivel(clientes[idCliente].puntosAcum)
     listaCompras[nuevaCompra.idCompra] = nuevaCompra
     fechas.append(fecha)
     # Retorno de la nueva compra creada
