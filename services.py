@@ -44,5 +44,5 @@ def consultarCatalogo():
     return (list(Catalogo))
 
 
-def canjePremio(idCanje: str, idCliente: str, idPremio: str, fecha: datetime):
-    canjePremio(idCanje, idCliente, idPremio, fecha)
+def canjePremio(idCliente: str, idPremio: str, fecha: datetime):
+    canjePremio(idCliente, idPremio, fecha)
