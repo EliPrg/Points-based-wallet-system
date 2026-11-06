@@ -1,0 +1,31 @@
+# Definición de costantes para el sistema
+from dataclasses import dataclass
+import datetime
+
+
+# Clase cliente
+@dataclass()
+class cliente:
+    idCliente: str
+    nombre: str
+    correo: str
+    fechaIns: datetime
+    saldo: int = 0
+    puntosAcum: int = 0
+
+
+# Clase para compras
+@dataclass()
+class compras:
+    idCompra: str
+    idCliente: str
+    monto: float
+    fecha: datetime
+
+
+# Canje premio
+@dataclass()
+class canjePremio:
+    idCliente: str
+    idPremio: str
+    fecha: datetime

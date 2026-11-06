@@ -9,9 +9,10 @@ UM_puntos = 10
 # Clase interna de la configuración para los premios
 @dataclass(frozen=True)
 class configPremios:
-    id_premio: str
+    idPremio: str
     nombre: str
     costo: int
+    stockInicial: int = 10
 
 
 # Catalogo de premios
