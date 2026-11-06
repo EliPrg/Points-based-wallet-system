@@ -23,3 +23,4 @@ jobs:
       - run: python -m compileall -q .
       - run: pip install flake8
       - run: flake8 . --max-line-length=200
+      - run: python -m unittest discover -s tests -t . -v
