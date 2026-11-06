@@ -2,7 +2,7 @@
 from config import Catalogo
 from models import cliente, compras, canjePremio
 from validations import validarDatosCliente, validarDatosCompra, validarExistenciaCliente, validarDatosCanjePremio
-from calculations import calcularPuntosAcum, calcularNivel
+from calculations import calcularPuntosAcum, calcularNivel, difProximoNivel
 from datetime import datetime
 from decimal import Decimal
 from calculations import buscarPremio
@@ -63,3 +63,9 @@ def canjearUnPremio(idCliente: str, idPremio: str, fecha: str):
     listaCanjes[nuevoCanje.fecha] = nuevoCanje
     fechas.append(fecha)
     return {"costo": premio.costo, "saldo": clientes[idCliente].saldo}
+
+
+# Método para consultar el nivel de un cliente
+def consultarNivel(idCliente):
+    validarExistenciaCliente(idCliente, clientes)
+    return {"nivel": clientes[idCliente].nivel[0], "puntosAcum": clientes[idCliente].nivel[1], "difNivel": difProximoNivel(clientes[idCliente].puntosAcum)}

@@ -26,3 +26,14 @@ def calcularNivel(puntosAcum):
         if puntosAcum >= umbral:
             nivelActual = (nombre, multiplicador)
     return nivelActual
+
+
+# Método para conocer cuanto falta para el siguiente nivel
+def difProximoNivel(puntosAcum):
+    match puntosAcum:
+        case "Bronce":
+            return (str(Niveles["Plata"][0] - puntosAcum))
+        case "Plata":
+            return (str(Niveles["Oro"][0] - puntosAcum))
+        case "Oro":
+            return ("Ya estas en el nivel maximo")
