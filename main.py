@@ -1,5 +1,6 @@
 # Archivo donde vive el codigo principal del programa
 from services import *
+from errors import LealtadError
 
 
 # Definición del método main
@@ -19,8 +20,11 @@ def main():
                     fecha = input("Ingrese la fecha de inscripción del cliente (dd-mm-aaaa): \n")
                     creacionCliente(idCliente, nombre, correo, fecha)
                     print (f"Se creo el cliente con el id: {idCliente}, nombre: {nombre}, correo: {correo} y fecha de inscripción: {fecha}\n")
-                except Exception as e:
+                except LealtadError as e:
+                    print(e.codigo)
                     print(e)
+                except Exception as e:
+                    print("Ocurrio un error inesperado: " + str(e))
                 opcionSeleccionada = "9"
             case "2":
                 try:
@@ -29,16 +33,22 @@ def main():
                     fecha = input("Ingrese la fecha de inscripción de la compra (dd-mm-aaaa): \n")
                     resultado=registroCompras(idCliente, monto, fecha)
                     print (f"Se registro la compra con el id: {resultado["id"]}, que genero la cantidad de: {resultado["puntos"]} " +
-                           f"puntos y que dejo al usuario la cantidad de{resultado["saldo"]}\n")
+                           f"puntos y que dejo al usuario la cantidad de: {resultado["saldo"]}\n")
+                except LealtadError as e:
+                    print(e.codigo)
+                    print(e)
                 except Exception as e:
-                    print (e)
+                    print("Ocurrio un error inesperado: " + str(e))
                 opcionSeleccionada = "9"
             case "3":
                 try:
                     idCliente = input("Ingrese la id del cliente cuyo saldo desea conocer: \n")
                     print (str(consultarSaldo(idCliente)) + "\n")
+                except LealtadError as e:
+                    print(e.codigo)
+                    print(e)
                 except Exception as e:
-                    print (e)
+                    print("Ocurrio un error inesperado: " + str(e))
                 opcionSeleccionada = "9"
             case "4": # Puedes agrupar casos con la barra vertical
                 try:
@@ -46,8 +56,11 @@ def main():
                     for i in catalogo:
                         print (f"id del premio: {i.idPremio}, nombre del premio: {i.nombre} " +
                             f"Costo: {i.costo}\n")
-                except Exception as e:
+                except LealtadError as e:
+                    print(e.codigo)
                     print(e)
+                except Exception as e:
+                    print("Ocurrio un error inesperado: " + str(e))
                 opcionSeleccionada = "9"
             case "5":
                 try:
@@ -55,10 +68,19 @@ def main():
                     idPremio = input("Ingrese el id del premio que desea canjear: \n")
                     fecha = input("Ingrese la fecha de inscripción del canje (dd-mm-aaaa): \n")
                     resultado=canjearUnPremio(idCliente, idPremio, fecha)
-                    print (f"Se canjeo el premio con el costo de: {resultado["costo"]} puntos y que dejo al usuario la cantidad de {resultado["saldo"]}\n")
-                except Exception as e:
+                    print (f"Se canjeo el premio con el costo de: {resultado["costo"]} puntos y que dejo al usuario la cantidad de: {resultado["saldo"]}\n")
+                except LealtadError as e:
+                    print(e.codigo)
                     print (e)
+                except Exception as e:
+                    print("Ocurrio un error inesperado: " + str(e))
                 opcionSeleccionada = "9"
+            case "0":
+                print("Saliendo del programa")
             case _:
                 print("El caracter añadido no es valido, por favor ingrese un numero valido\n")
                 opcionSeleccionada = "9"
+
+
+if __name__ == "__main__":
+    main()
