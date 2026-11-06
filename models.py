@@ -26,7 +26,6 @@ class compras:
 # Canje premio
 @dataclass()
 class canjePremio:
-    idCanje: str
     idCliente: str
     idPremio: str
     fecha: datetime
