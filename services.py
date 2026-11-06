@@ -9,6 +9,10 @@ from calculations import buscarPremio
 clientes = {}
 fechas = []
 listaCompras = {}
+listaCanjes = {}
+stockPremios = {
+     p.id_premio: p.stockInicial for p in Catalogo
+}
 
 
 def creacionCliente(idCliente: str, nombre: str, correoElectronico: str, fecha: str):
@@ -45,5 +49,14 @@ def consultarCatalogo():
     return (list(Catalogo))
 
 
-def canjePremio(idCliente: str, idPremio: str, fecha: datetime):
-    canjePremio(idCliente, idPremio, fecha)
+def canjearUnPremio(idCliente: str, idPremio: str, fecha: str):
+    validarExistenciaCliente(idCliente, clientes)
+    # Validación de existencia del premio en el catalogo
+    validarDatosCanjePremio(idCliente, clientes, idPremio, fecha, fechas, stockPremios)
+    premio = buscarPremio
+    clientes[idCliente].saldo -= premio.costo
+    stockPremios[idPremio] -= 1
+    nuevoCanje = canjePremio(idCliente, idPremio, fecha)
+    listaCanjes[nuevoCanje.fecha] = nuevoCanje
+    fechas.append(fecha)
+    return (premio.costo, clientes[idCliente].saldo)
