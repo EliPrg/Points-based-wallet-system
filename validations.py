@@ -1,8 +1,8 @@
 # Archivo que contiene las validaciones de los datos de entrada
 from errors import ErrorClienteDuplicado, ErrorDatosInvalidos, ErrorClienteNoEncontrado, ErrorFechaInvalida, ErrorMontoInvalido, ErrorSaldoInsuficiente, ErrorPremioSinStock, ErrorPremioNoEncontrado
-from calculations import metodoConteoDecimal
 import re
 from datetime import datetime
+from decimal import Decimal, InvalidOperation
 
 
 # Método para validar los datos de entrada del cliente
@@ -51,15 +51,22 @@ def validacionDeFechaValida(fecha, fechasAlmacenadas):
 def validarDatosCompra(idCliente, clientes, fecha, fechasAlmacenadas, monto):
     # Validación de la existencia del cliente
     validarExistenciaCliente(idCliente, clientes)
-    # Llamada del método para validar la fecha
-    validacionDeFechaValida(fecha, fechasAlmacenadas)
     # Validar que el monto sea mayor a 0
+    try:
+        monto = Decimal(monto)
+    except (InvalidOperation, TypeError, ValueError):
+        raise ErrorMontoInvalido(monto, "el monto no es un número")
+    if not monto.is_finite():
+        raise ErrorMontoInvalido(monto, "El monto no es un numero finito")
     if monto <= 0:
         # Mensaje de error si el monto es inferior o igual a 0
         raise ErrorMontoInvalido(monto, "el monto es menor o igual a 0")
     # Validar que los decimales del monto no sean más de dos
-    if metodoConteoDecimal(monto) > 2:
+    if monto.normalize().as_tuple().exponent < -2:
         raise ErrorMontoInvalido(monto, "el monto contiene más de 2 decimales")
+
+    # Llamada del método para validar la fecha
+    validacionDeFechaValida(fecha, fechasAlmacenadas)
 
 
 # Método para validar que un cliente exista en la tabla de clientes

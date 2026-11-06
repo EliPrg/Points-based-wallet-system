@@ -1,10 +1,13 @@
 # Archivo de servicios para el sistema de lealtad
 from config import Catalogo
 from models import cliente, compras
-from validations import validarDatosCliente
+from validations import validarDatosCliente, validarDatosCompra
+from calculations import calcularPuntosAcum
 from datetime import datetime
+from decimal import Decimal
 clientes = {}
 fechas = []
+listaCompras = {}
 
 
 def creacionCliente(idCliente: str, nombre: str, correoElectronico: str, fecha: str):
@@ -16,8 +19,20 @@ def creacionCliente(idCliente: str, nombre: str, correoElectronico: str, fecha: 
     return (nuevoCliente)
 
 
-def registroCompras(idCompra: str, idCliente: str, monto: float, fecha: datetime):
-    compras(idCompra, idCliente, monto, fecha)
+def registroCompras(idCliente: str, monto: str, fecha: str):
+    # Validación los datos de entrada de la compra
+    validarDatosCompra(idCliente, clientes, fecha, fechas, monto)
+    fecha = datetime.strptime(fecha, "%d-%m-%Y").date()
+    puntosSum = calcularPuntosAcum(monto)
+    idCompra = "C-" + str(len(listaCompras) + 1)
+    # Creación de la nueva compra y almacenamiento en el diccionario de compras
+    nuevaCompra = compras(idCompra, idCliente, Decimal(monto), fecha)
+    clientes[idCliente].saldo += puntosSum
+    clientes[idCliente].puntosAcum += puntosSum
+    listaCompras[nuevaCompra.idCompra] = nuevaCompra
+    fechas.append(fecha)
+    # Retorno de la nueva compra creada
+    return ({"id de la Compra": idCompra, "puntos sumados": puntosSum, "Saldo final del cliente": clientes[idCliente].saldo})
 
 
 def consultarSaldo(idCliente: str):

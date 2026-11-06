@@ -1,15 +1,10 @@
 # Archivo que contiene calculos matemáticos para el sistema de lealtad
 # Importaciónes necesarias
 from config import UM_puntos
-
-
-# Método para contar los decimales de un número
-def metodoConteoDecimal(numero):
-    numeroCasteado = str(numero)
-    numeroCasteado = numeroCasteado.split(".")
-    return len(numeroCasteado[1])
+from decimal import Decimal
+import math
 
 
 # Método para calcular los puntos acumulados a partir del monto de la compra
-def calcularPuntosAcum(monto: float):
-    return ((monto/UM_puntos)*1)
+def calcularPuntosAcum(monto):
+    return (math.floor((Decimal(monto)/UM_puntos)*1))
