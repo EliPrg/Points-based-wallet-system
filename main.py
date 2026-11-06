@@ -8,9 +8,9 @@ def main():
     print("El programa funciona")
     opcionSeleccionada = "9"
     while opcionSeleccionada == "9":
-        opcionSeleccionada = input("Seleccione el numero correspondiente a la operación deseada \n"+
-                                    "1. Crear Cliente\n 2. Registrar compra\n 3. Consultar saldo\n 4. Consultar catálogo de premios\n" +
-                                    "5. Canjear un premio\n 0. Salir del programa\n")
+        opcionSeleccionada = input("Seleccione el numero correspondiente a la operación deseada \n" +
+                                   "1. Crear Cliente\n 2. Registrar compra\n 3. Consultar saldo\n 4. Consultar catálogo de premios\n" +
+                                   "5. Canjear un premio\n 0. Salir del programa\n")
         match opcionSeleccionada:
             case "1":
                 try:
