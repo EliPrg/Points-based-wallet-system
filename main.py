@@ -1,5 +1,5 @@
 # Archivo donde vive el codigo principal del programa
-from services import creacionCliente, registroCompras, consultarSaldo, consultarCatalogo, canjearUnPremio
+from services import creacionCliente, registroCompras, consultarSaldo, consultarCatalogo, canjearUnPremio, consultarNivel, consultarHistorial
 from errors import LealtadError
 
 
@@ -10,7 +10,7 @@ def main():
     while opcionSeleccionada == "9":
         opcionSeleccionada = input("Seleccione el numero correspondiente a la operación deseada \n" +
                                    "1. Crear Cliente\n 2. Registrar compra\n 3. Consultar saldo\n 4. Consultar catálogo de premios\n" +
-                                   "5. Canjear un premio\n 0. Salir del programa\n")
+                                   "5. Canjear un premio\n 6. Consultar nivel\n 7. Consultar historial\n 0. Salir del programa\n")
         match opcionSeleccionada:
             case "1":
                 try:
@@ -70,6 +70,31 @@ def main():
                     fecha = input("Ingrese la fecha de inscripción del canje (dd-mm-aaaa): \n")
                     resultado = canjearUnPremio(idCliente, idPremio, fecha)
                     print(f"Se canjeo el premio con el costo de: {resultado["costo"]} puntos y que dejo al usuario la cantidad de: {resultado["saldo"]}\n")
+                except LealtadError as e:
+                    print(e.codigo)
+                    print(e)
+                except Exception as e:
+                    print("Ocurrio un error inesperado: " + str(e))
+                opcionSeleccionada = "9"
+            case "6":
+                try:
+                    idCliente = input("Ingrese el id del cliente: \n")
+                    nivel = consultarNivel(idCliente)
+                    print(f"El nivel del cliente es: {nivel["nivel"]}, los puntos acumulados son: {nivel["puntosAcum"]} y faltan: {nivel["difNivel"]} "+
+                          "para el siguiente nivel\n")
+                except LealtadError as e:
+                    print(e.codigo)
+                    print(e)
+                except Exception as e:
+                    print("Ocurrio un error inesperado: " + str(e))
+                opcionSeleccionada = "9"
+            case "7":
+                try:
+                    idCliente = input("Ingrese el id del cliente: \n")
+                    historial = consultarHistorial(idCliente)
+                    print("TIPO DE MOVIMIENTO | PUNTOS | FECHA | REFERENCIA\n")
+                    for movimiento in historial:
+                        print(f"Tipo: {movimiento['tipo']}, Puntos: {movimiento['puntos']}, Fecha: {movimiento['fecha']}, Referencia: {movimiento['referencia']}\n")
                 except LealtadError as e:
                     print(e.codigo)
                     print(e)

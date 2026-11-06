@@ -2,17 +2,18 @@
 from config import Catalogo
 from models import cliente, compras, canjePremio
 from validations import validarDatosCliente, validarDatosCompra, validarExistenciaCliente, validarDatosCanjePremio
-from calculations import calcularPuntosAcum, calcularNivel, difProximoNivel
+from calculations import calcularPuntosAcum, calcularNivel, difProximoNivel, conocerTipoMovimiento
 from datetime import datetime
 from decimal import Decimal
 from calculations import buscarPremio
 clientes = {}
 fechas = []
-listaCompras = {}
-listaCanjes = {}
+cantidadCompras = 1
+cantidadCanjes = 1
 stockPremios = {
      p.idPremio: p.stockInicial for p in Catalogo
 }
+historial = {}
 
 
 def creacionCliente(idCliente: str, nombre: str, correoElectronico: str, fecha: str):
@@ -25,18 +26,21 @@ def creacionCliente(idCliente: str, nombre: str, correoElectronico: str, fecha: 
 
 
 def registroCompras(idCliente: str, monto: str, fecha: str):
+    global cantidadCompras
     # Validación los datos de entrada de la compra
     validarDatosCompra(idCliente, clientes, fecha, fechas, monto)
     fecha = datetime.strptime(fecha, "%d-%m-%Y").date()
     nivelUsado = clientes[idCliente].nivel
     puntosSum = calcularPuntosAcum(monto, nivelUsado[1])
-    idCompra = "C-" + str(len(listaCompras) + 1)
+    idCompra = "C-" + str(cantidadCompras)
+    cantidadCompras += 1
     # Creación de la nueva compra y almacenamiento en el diccionario de compras
-    nuevaCompra = compras(idCompra, idCliente, Decimal(monto), fecha)
+    nuevaCompra = compras(idCompra, idCliente, Decimal(monto), fecha, puntosSum)
     clientes[idCliente].saldo += puntosSum
     clientes[idCliente].puntosAcum += puntosSum
     clientes[idCliente].nivel = calcularNivel(clientes[idCliente].puntosAcum)
-    listaCompras[nuevaCompra.idCompra] = nuevaCompra
+    if puntosSum > 0:
+        historial[idCompra] = nuevaCompra
     fechas.append(fecha)
     # Retorno de la nueva compra creada
     return ({"id": idCompra, "puntos": puntosSum, "saldo": clientes[idCliente].saldo, "nivel": nivelUsado[0], "mul": nivelUsado[1]})
@@ -52,6 +56,7 @@ def consultarCatalogo():
 
 
 def canjearUnPremio(idCliente: str, idPremio: str, fecha: str):
+    global cantidadCanjes
     validarExistenciaCliente(idCliente, clientes)
     # Validación de existencia del premio en el catalogo
     validarDatosCanjePremio(idCliente, clientes, idPremio, fecha, fechas, stockPremios)
@@ -59,8 +64,10 @@ def canjearUnPremio(idCliente: str, idPremio: str, fecha: str):
     clientes[idCliente].saldo -= premio.costo
     stockPremios[idPremio] -= 1
     fecha = datetime.strptime(fecha, "%d-%m-%Y").date()
-    nuevoCanje = canjePremio(idCliente, idPremio, fecha)
-    listaCanjes[nuevoCanje.fecha] = nuevoCanje
+    idCanje = "P-" + str(cantidadCanjes)
+    cantidadCanjes += 1
+    nuevoCanje = canjePremio(idCanje, idCliente, idPremio, fecha, -premio.costo)
+    historial[idCanje] = nuevoCanje
     fechas.append(fecha)
     return {"costo": premio.costo, "saldo": clientes[idCliente].saldo}
 
@@ -68,4 +75,15 @@ def canjearUnPremio(idCliente: str, idPremio: str, fecha: str):
 # Método para consultar el nivel de un cliente
 def consultarNivel(idCliente):
     validarExistenciaCliente(idCliente, clientes)
-    return {"nivel": clientes[idCliente].nivel[0], "puntosAcum": clientes[idCliente].nivel[1], "difNivel": difProximoNivel(clientes[idCliente].puntosAcum)}
+    return {"nivel": clientes[idCliente].nivel[0], "puntosAcum": clientes[idCliente].puntosAcum, "difNivel": difProximoNivel(clientes[idCliente].nivel[0], clientes[idCliente].puntosAcum)}
+
+
+# Método para consultar el historial de un cliente
+def consultarHistorial(idCliente):
+    validarExistenciaCliente(idCliente, clientes)
+    historialCliente = []
+    for idMov, movimiento in historial.items():
+        if movimiento.idCliente == idCliente:
+            historico = {"tipo": conocerTipoMovimiento(idMov), "puntos": movimiento.puntos, "fecha": movimiento.fecha, "referencia": idMov}
+            historialCliente.append(historico)
+    return historialCliente

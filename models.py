@@ -23,11 +23,14 @@ class compras:
     idCliente: str
     monto: float
     fecha: datetime
+    puntos: int
 
 
 # Canje premio
 @dataclass()
 class canjePremio:
+    idCanje: str
     idCliente: str
     idPremio: str
     fecha: datetime
+    puntos: int

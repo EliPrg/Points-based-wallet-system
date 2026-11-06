@@ -29,11 +29,19 @@ def calcularNivel(puntosAcum):
 
 
 # Método para conocer cuanto falta para el siguiente nivel
-def difProximoNivel(puntosAcum):
-    match puntosAcum:
+def difProximoNivel(nivel, puntosAcum):
+    match nivel:
         case "Bronce":
             return (str(Niveles["Plata"][0] - puntosAcum))
         case "Plata":
             return (str(Niveles["Oro"][0] - puntosAcum))
         case "Oro":
             return ("Ya estas en el nivel maximo")
+
+
+# Método para conocer el tipo de movimiento según su id
+def conocerTipoMovimiento(idMov):
+    if idMov[0] == "P":
+        return ("CANJE")
+    else:
+        return ("ACUMULACIÓN")
