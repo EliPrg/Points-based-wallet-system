@@ -37,7 +37,7 @@ def registroCompras(idCliente: str, monto: str, fecha: str):
     listaCompras[nuevaCompra.idCompra] = nuevaCompra
     fechas.append(fecha)
     # Retorno de la nueva compra creada
-    return ({"id de la Compra": idCompra, "puntos sumados": puntosSum, "Saldo final del cliente": clientes[idCliente].saldo})
+    return ({"id": idCompra, "puntos": puntosSum, "Saldo": clientes[idCliente].saldo})
 
 
 def consultarSaldo(idCliente: str):
