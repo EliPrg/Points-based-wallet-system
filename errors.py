@@ -8,6 +8,7 @@ class LealtadError(Exception):
 # Clase para las excepciones de un cliente duplicado
 class ErrorClienteDuplicado(LealtadError):
     codigo = "CLIENTE_DUPLICADO"
+
     # Constructor de la clase
     def __init__(self, idCliente):
         super().__init__(idCliente)
@@ -21,6 +22,7 @@ class ErrorClienteDuplicado(LealtadError):
 # Clase para las excepciones de cliente no encontrados
 class ErrorClienteNoEncontrado(LealtadError):
     codigo = "CLIENTE_NO_ENCONTRADO"
+
     # Constructor de la clase
     def __init__(self, idCliente):
         super().__init__(idCliente)
@@ -34,6 +36,7 @@ class ErrorClienteNoEncontrado(LealtadError):
 # Clase para las excepciones de datos inválidos
 class ErrorDatosInvalidos(LealtadError):
     codigo = "DATOS_INVALIDOS"
+
     # Constructor de la clase
     def __init__(self, zonaError, datoInvalido):
         super().__init__(zonaError, datoInvalido)
@@ -48,6 +51,7 @@ class ErrorDatosInvalidos(LealtadError):
 # Clase para las excepciones de fecha Invalida
 class ErrorMontoInvalido(LealtadError):
     codigo = "MONTO_INVALIDO"
+
     # Constructor de la clase
     def __init__(self, monto, motivoDeInvalidez):
         super().__init__(monto)
@@ -62,6 +66,7 @@ class ErrorMontoInvalido(LealtadError):
 # Clase para las excepciones de fecha Invalida
 class ErrorFechaInvalida(LealtadError):
     codigo = "FECHA_INVALIDA"
+
     # Constructor de la clase
     def __init__(self, fecha, motivoDeInvalidez):
         super().__init__(fecha, motivoDeInvalidez)
@@ -76,6 +81,7 @@ class ErrorFechaInvalida(LealtadError):
 # Clase para las excepciones de premio no encontrados
 class ErrorPremioNoEncontrado(LealtadError):
     codigo = "PREMIO_NO_ENCONTRADO"
+
     # Constructor de la clase
     def __init__(self, idPremio):
         super().__init__(idPremio)
@@ -89,6 +95,7 @@ class ErrorPremioNoEncontrado(LealtadError):
 # Clase para las excepciones de premio sin stock
 class ErrorPremioSinStock(LealtadError):
     codigo = "PREMIO_SIN_STOCK"
+
     # Constructor de la clase
     def __init__(self, nombre):
         super().__init__(nombre)
@@ -101,6 +108,8 @@ class ErrorPremioSinStock(LealtadError):
 
 # Clase para las excepciones de premio sin stock
 class ErrorSaldoInsuficiente(LealtadError):
+    codigo = "SALDO_INSUFICIENTE"
+
     # Constructor de la clase
     def __init__(self, saldo, CostoCompra):
         super().__init__(saldo, CostoCompra)
