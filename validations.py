@@ -87,7 +87,7 @@ def validarDatosCanjePremio(idCliente, clientes, idPremio, fecha, fechasAlmacena
     premio = buscarPremio(idPremio)
     if premio is None:
         raise ErrorPremioNoEncontrado(idPremio)
-    if stockPremios[idPremio].stock <= 0:
+    if stockPremios[idPremio] <= 0:
         raise ErrorPremioSinStock(premio.nombre)
     if clientes[idCliente].saldo < premio.costo:
         raise ErrorSaldoInsuficiente(clientes[idCliente].saldo, premio.costo)
