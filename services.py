@@ -28,7 +28,7 @@ def registroCompras(idCliente: str, monto: str, fecha: str):
     # Validación los datos de entrada de la compra
     validarDatosCompra(idCliente, clientes, fecha, fechas, monto)
     fecha = datetime.strptime(fecha, "%d-%m-%Y").date()
-    nivelUsado =  clientes[idCliente].nivel
+    nivelUsado = clientes[idCliente].nivel
     puntosSum = calcularPuntosAcum(monto, nivelUsado[1])
     idCompra = "C-" + str(len(listaCompras) + 1)
     # Creación de la nueva compra y almacenamiento en el diccionario de compras
