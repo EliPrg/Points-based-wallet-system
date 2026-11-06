@@ -53,7 +53,7 @@ def canjearUnPremio(idCliente: str, idPremio: str, fecha: str):
     validarExistenciaCliente(idCliente, clientes)
     # Validación de existencia del premio en el catalogo
     validarDatosCanjePremio(idCliente, clientes, idPremio, fecha, fechas, stockPremios)
-    premio = buscarPremio
+    premio = buscarPremio(idPremio)
     clientes[idCliente].saldo -= premio.costo
     stockPremios[idPremio] -= 1
     fecha = datetime.strptime(fecha, "%d-%m-%Y").date()
