@@ -44,4 +44,4 @@ def conocerTipoMovimiento(idMov):
     if idMov[0] == "P":
         return ("CANJE")
     else:
-        return ("ACUMULACIÓN")
+        return ("ACUMULACION")
