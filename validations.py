@@ -91,7 +91,6 @@ def validarDatosCanjePremio(idCliente, clientes, idPremio, fecha, fechasAlmacena
         raise ErrorPremioSinStock(premio.nombre)
     if clientes[idCliente].saldo < premio.costo:
         raise ErrorSaldoInsuficiente(clientes[idCliente].saldo, premio.costo)
-    
 
 
 # Método para buscar un premio por id dentro del catálogo (lista)
