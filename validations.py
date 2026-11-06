@@ -3,7 +3,6 @@ from errors import ErrorClienteDuplicado, ErrorDatosInvalidos, ErrorClienteNoEnc
 import re
 from datetime import datetime
 from decimal import Decimal, InvalidOperation
-from config import Catalogo
 from calculations import buscarPremio
 
 
