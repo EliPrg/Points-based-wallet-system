@@ -257,4 +257,3 @@ class TestPrueba5HistorialConErrores(PruebaBase):
 
 if __name__ == "__main__":
     unittest.main()
-    
