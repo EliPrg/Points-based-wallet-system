@@ -37,7 +37,7 @@ def registroCompras(idCliente: str, monto: str, fecha: str):
     listaCompras[nuevaCompra.idCompra] = nuevaCompra
     fechas.append(fecha)
     # Retorno de la nueva compra creada
-    return ({"id": idCompra, "puntos": puntosSum, "Saldo": clientes[idCliente].saldo})
+    return ({"id": idCompra, "puntos": puntosSum, "saldo": clientes[idCliente].saldo})
 
 
 def consultarSaldo(idCliente: str):
@@ -56,6 +56,7 @@ def canjearUnPremio(idCliente: str, idPremio: str, fecha: str):
     premio = buscarPremio
     clientes[idCliente].saldo -= premio.costo
     stockPremios[idPremio] -= 1
+    fecha = datetime.strptime(fecha, "%d-%m-%Y").date()
     nuevoCanje = canjePremio(idCliente, idPremio, fecha)
     listaCanjes[nuevoCanje.fecha] = nuevoCanje
     fechas.append(fecha)
