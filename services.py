@@ -1,7 +1,7 @@
 # Archivo de servicios para el sistema de lealtad
 from config import Catalogo
 from models import cliente, compras
-from validations import validarDatosCliente, validarDatosCompra
+from validations import validarDatosCliente, validarDatosCompra, validarExistenciaCliente
 from calculations import calcularPuntosAcum
 from datetime import datetime
 from decimal import Decimal
@@ -36,7 +36,8 @@ def registroCompras(idCliente: str, monto: str, fecha: str):
 
 
 def consultarSaldo(idCliente: str):
-    return ()
+    validarExistenciaCliente(idCliente, clientes)
+    return (clientes[idCliente].saldo)
 
 
 def consultarCatalogo():
