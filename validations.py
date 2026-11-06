@@ -3,6 +3,7 @@ from errors import ErrorClienteDuplicado, ErrorDatosInvalidos, ErrorClienteNoEnc
 import re
 from datetime import datetime
 from decimal import Decimal, InvalidOperation
+from config import Catalogo
 
 
 # Método para validar los datos de entrada del cliente
@@ -77,15 +78,24 @@ def validarExistenciaCliente(idCliente, clientes):
 
 
 # Método para validar que los datos de entrada del canje de un premio
-def validarDatosCanjePremio(idCliente, clientes, idPremio, premios, fecha, fechasAlmacenadas):
+def validarDatosCanjePremio(idCliente, clientes, idPremio, fecha, fechasAlmacenadas, stockPremios):
     # Validación de la existencia del cliente
     validarExistenciaCliente(idCliente, clientes)
     # Llamada del método para validar la fecha
     validacionDeFechaValida(fecha, fechasAlmacenadas)
     # Validaciones del saldo
-    if idPremio not in premios:
+    premio = buscarPremio(idPremio)
+    if premio is None:
         raise ErrorPremioNoEncontrado(idPremio)
-    if clientes[idCliente]["saldo"] < premios[idPremio]["costo"]:
-        raise ErrorSaldoInsuficiente(clientes[idCliente]["saldo"], premios[idPremio]["costo"])
-    if premios[idPremio]["stock"] <= 0:
-        raise ErrorPremioSinStock(premios[idPremio]["nombre"])
+    if stockPremios[idPremio].stock <= 0:
+        raise ErrorPremioSinStock(premio.nombre)
+    if clientes[idCliente].saldo < premio.costo:
+        raise ErrorSaldoInsuficiente(clientes[idCliente].saldo, premio.costo)
+
+
+# Método para buscar un premio por id dentro del catálogo (lista)
+def buscarPremio(idPremio):
+    for premio in Catalogo:
+        if premio.id_premio == idPremio:
+            return premio
+    return None
