@@ -41,9 +41,7 @@ def consultarSaldo(idCliente: str):
 
 
 def consultarCatalogo():
-    for i in len(Catalogo):
-        for j in len(Catalogo[i]):
-            print(f"id: {Catalogo[i, j].id_premio}, Nombre: {Catalogo[i, j].nombre}, Costo: {Catalogo[i, j].costo}")
+    return (list(Catalogo))
 
 
 def canjePremio(idCanje: str, idCliente: str, idPremio: str, fecha: datetime):
