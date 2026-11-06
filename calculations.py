@@ -27,9 +27,3 @@ def calcularNivel(puntosAcum):
             nivelActual = (nombre, multiplicador)
     return nivelActual
 
-
-# Método para obtener el multiplicador según el nivel
-def calcularMulti(nivel):
-    for nombre, (umbral, multiplicador) in Niveles.items():
-        if nivel == nombre:
-            return multiplicador

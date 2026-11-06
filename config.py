@@ -1,7 +1,8 @@
 # Definición de costantes para el sistema
 from dataclasses import dataclass
+from decimal import Decimal
 # Niveles de lealtad
-Niveles = {"Bronce": (0, 1), "Plata": (1000, 1.25), "Oro": (5000, 1.5)}
+Niveles = {"Bronce": (0, Decimal("1.00")), "Plata": (1000, Decimal("1.25")), "Oro": (5000, Decimal("1.50"))}
 # Puntos por u.m.
 UM_puntos = 10
 

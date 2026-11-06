@@ -1,6 +1,7 @@
 # Definición de costantes para el sistema
 from dataclasses import dataclass
 import datetime
+from decimal import Decimal
 
 
 # Clase cliente
@@ -10,7 +11,7 @@ class cliente:
     nombre: str
     correo: str
     fechaIns: datetime
-    nivel: str = "Bronce"
+    nivel: str = ("Bronce", Decimal("1.00"))
     saldo: int = 0
     puntosAcum: int = 0
 
